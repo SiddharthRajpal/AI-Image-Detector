@@ -29,8 +29,8 @@ A robust detector that classifies whether an image is **AI-generated (AIGC)** or
 First install the repo and the required libraries
 ```
 git clone https://github.com/SiddharthRajpal/AI-Image-Detector
-pip install -r requirements.txt
 cd Ai-Image-Detector
+pip install -r requirements.txt
 ```
 With a trained checkpoint at `checkpoints/detector.pt`, point `run.py` at an image or a folder:
 
