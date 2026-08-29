@@ -75,8 +75,8 @@ input → [random robustness corruption] → [frozen CLIP ViT-B/16] → 512-d fe
 
 ```bash
 # 1. Clone
-git clone [GitHub link]
-cd [repo-name]
+git clone https://github.com/SiddharthRajpal/AI-Image-Detector/
+cd AI-Image-Detector
 
 # 2. Install PyTorch FIRST (see the note above) from https://pytorch.org, then verify:
 python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))"
