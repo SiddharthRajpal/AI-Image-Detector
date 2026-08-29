@@ -14,10 +14,22 @@ A robust detector that classifies whether an image is **AI-generated (AIGC)** or
 ---
 
 ## Quick Start (run the detector)
+> ## ⚠️ IMPORTANT — PyTorch must be installed first
+> **`requirements.txt` assumes you already have a working PyTorch setup (GPU or CPU).**
+> It intentionally does **not** list `torch`/`torchvision`, because installing them via
+> pip can overwrite a working CUDA (GPU) build with a CPU-only one and break GPU training.
+> **Install PyTorch yourself first** using the exact command for your system from
+> **https://pytorch.org**, then install the rest. Verify it works before continuing:
+> ```bash
+> python -c "import torch; print(torch.cuda.is_available(), torch.__version__)"
+> ```
+
+**Requirements:** Python 3, and a working PyTorch install (an NVIDIA GPU build is recommended; CPU works but is slow).
 First install the repo and the required libraries
 ```
 git clone https://github.com/SiddharthRajpal/AI-Image-Detector
 pip install -r requirements.txt
+cd Ai-Image-Detector
 ```
 With a trained checkpoint at `checkpoints/detector.pt`, point `run.py` at an image or a folder:
 
