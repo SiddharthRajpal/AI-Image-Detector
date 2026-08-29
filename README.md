@@ -109,7 +109,7 @@ pip install -r requirements.txt
 
 ---
 
-## Steps to Reproduce Our Results (train the same model again) **Takes a lot of time**
+## Steps to Reproduce Our Results (train the same model again) __Takes a lot of time__
 
 ```bash
 # 1. Get training data — streams SID_Set (a few GB, NOT the full 140 GB) into
