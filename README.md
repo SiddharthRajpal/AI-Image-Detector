@@ -167,7 +167,6 @@ streamlit run app.py
 | `confusion_matrix.py` | Cross-source confusion matrix with a threshold dial and a labelled PNG. |
 | `app.py` | Streamlit dashboard — robustness playground (slider-driven) + batch folder scoring. |
 | `requirements.txt` | Dependencies (excludes torch to protect your CUDA build). |
-| `PROJECT_DOCUMENTATION.md` | Full technical reference + anticipated-questions bank. |
 
 ---
 
