@@ -38,7 +38,7 @@ def main():
                     help="an image file OR a directory of images (searched recursively)")
     ap.add_argument("--model", default="checkpoints/detector.pt")
     ap.add_argument("--out", default="results.json")
-    ap.add_argument("--threshold", type=float, default=0.5,
+    ap.add_argument("--threshold", type=float, default=0.7,
                     help="pred >= threshold => flagged AI-generated")
     ap.add_argument("--batch_size", type=int, default=64)
     args = ap.parse_args()
