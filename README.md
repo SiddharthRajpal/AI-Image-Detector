@@ -25,6 +25,7 @@ A robust detector that classifies whether an image is **AI-generated (AIGC)** or
 > ```
 
 **Requirements:** Python 3, and a working PyTorch install (an NVIDIA GPU build is recommended; CPU works but is slow).
+
 First install the repo and the required libraries
 ```
 git clone https://github.com/SiddharthRajpal/AI-Image-Detector
