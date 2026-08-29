@@ -35,7 +35,7 @@ pip install -r requirements.txt
 With a trained checkpoint at `checkpoints/detector.pt`, point `run.py` at an image or a folder:
 
 ```bash
-python run.py --input path/to/images
+python run.py --input "path/to/images"
 ```
 It prints a verdict and confidence for each image and saves `results.json`:
 ```
