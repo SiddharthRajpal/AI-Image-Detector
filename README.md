@@ -1,19 +1,21 @@
 # Robust Detection of AI-Generated Images Under Real-World Transformations
 
-A robust detector that classifies whether an image is **AI-generated (AIGC)** or **authentic**, engineered to stay accurate after real-world degradation — JPEG compression, blur, resizing, noise, colour filters, and cropping.
+## Abstract
 
-**Approach in one line:** a small trainable classifier on top of a **frozen CLIP ViT-B/16** vision transformer, trained with the **exact image corruptions it will be tested against**, applied identically to real and fake images.
+An **AI-generated image detector** that verifies the authenticity of images and developed to ensure robustness and accuracy even after real-world degradation — JPEG compression, blur, resizing, noise, colour filters, and cropping.
+
+**Our approach:** A small trainable classifier on top of a **frozen CLIP ViT-B/16** vision transformer, trained with the **augmentation parameters** that it will be tested against and applied identically to real and fake images.
 
 | | |
 |---|---|
-| **Demo video** | [YouTube link] |
+| **Demo video** | https://youtu.be/OK6KRVUehPk
 | **Robustness** | AUROC stays within ±0.002 of clean across 15 transform conditions |
 | **Cross-source generalisation** | Recall >99% on fakes from unseen generators; false-positive rate stable at ~7–8% across three independent real-image sources |
 | **Model size** | ~150M parameters (well under the 2B limit) |
 
 ---
 
-## Quick Start (run the detector)
+## Quick Start
 > ## ⚠️ IMPORTANT — PyTorch must be installed first
 > **`requirements.txt` assumes you already have a working PyTorch setup (GPU or CPU).**
 > It intentionally does **not** list `torch`/`torchvision`, because installing them via
@@ -29,7 +31,7 @@ A robust detector that classifies whether an image is **AI-generated (AIGC)** or
 First install the repo and the required libraries
 ```
 git clone https://github.com/SiddharthRajpal/AI-Image-Detector
-cd Ai-Image-Detector
+cd AI-Image-Detector
 pip install -r requirements.txt
 ```
 With a trained checkpoint at `checkpoints/detector.pt`, point `run.py` at an image or a folder:
@@ -51,23 +53,23 @@ For the raw JSON deliverable format (`[{"image_path", "pred"}]`), `run.py` and `
 ## Table of Contents
 - [Project Overview](#project-overview)
 - [Setup and Installation](#setup-and-installation)
-- [Steps to Reproduce Our Results](#steps-to-reproduce-our-results)
+- [Training Our Model](#training-our-model)
 - [Repository Structure](#repository-structure)
 - [Results Summary](#results-summary)
 - [Limitations & What We'd Improve](#limitations--what-wed-improve)
 - [Team Member Contributions](#team-member-contributions)
-- [Further Documentation](#further-documentation)
+
 
 ---
 
 ## Project Overview
 
-Generative AI can now produce photorealistic fake images at scale, feeding misinformation, impersonation, and fraud. Most detectors score 97–99% on clean images but collapse the moment an image is compressed, blurred, or cropped — because they rely on high-frequency generator fingerprints that those operations destroy. **Robustness under real-world transformation is the actual problem**, and it is what this project is built around.
+With generative AI tools on the rise, creators are increasingly concerned about their likeness being used without permission and their content being stolen. This is made even more problematic by AI-generated images that undergo augmentation, making it harder for consumers to verify the authenticity of online content. Our solution aims to achieve a high true positive percentage for the robust detection of AI-generated images. Most detectors score 97–99% on clean images but collapse the moment an image is processed.  **Robustness under real-world transformation is the actual problem**, and it is what this project is built around.
 
 **How it works.** Each image is passed through a **frozen** CLIP ViT-B/16 encoder (weights never updated) to produce a 512-dimensional feature vector, and a small trainable MLP head maps that vector to the probability the image is AI-generated. Two design choices drive the result:
 
 1. **Frozen foundation-model backbone** — a from-scratch network memorises the fingerprint of the specific generators it saw and fails on unseen ones; CLIP's general features transfer across generators (GANs, diffusion, DALL·E), which matters because the hidden benchmark uses a generator we may not have trained on.
-2. **Transform-matched augmentation** — every training image is randomly JPEG-compressed, blurred, noised, resized, colour-jittered, and cropped *before* reaching CLIP, teaching invariance to exactly those corruptions. The same augmentation is applied to real and fake images so compression/resolution can't become a shortcut.
+2. **Transform-matched augmentation** — every training image is randomly augmented based on the parameters *before* reaching CLIP, teaching invariance to exactly those corruptions. Both real and fake datasets undergo the same augmentation to avoid shortcut learning.
 
 ```
 input → [random robustness corruption] → [frozen CLIP ViT-B/16] → 512-d feature → [trained MLP head] → P(AI-generated)
@@ -109,7 +111,9 @@ pip install -r requirements.txt
 
 ---
 
-## Steps to Reproduce Our Results (train the same model again) __Takes a lot of time__
+## Training Our Model
+> ⚠️ Note: retraining from scratch takes a lot of time.
+
 
 ```bash
 # 1. Get training data — streams SID_Set (a few GB, NOT the full 140 GB) into
@@ -178,7 +182,7 @@ streamlit run app.py
 |---|---|---|---|---|---|---|---|
 | AUROC | 0.9975 | 0.9994 | 0.9983 | 0.9984 | 0.9971 | 0.9966 | 0.9968 |
 
-Full table (all 15 conditions) is in `PROJECT_DOCUMENTATION.md` §9.4 and `robustness.csv`.
+Full table (all 15 conditions) is  §9.4 and `robustnessTable.csv`.
 
 **Cross-dataset generalisation** — tested on three independent sources (none used in training):
 
@@ -201,7 +205,7 @@ The false-positive rate is stable at **~7–8% across three different real-image
 - **Single primary generator source.** Fakes come mainly from SID_Set's synthetic set; broader generator diversity was scoped out under time pressure.
 - **In-distribution validation is optimistic** (~1.000 AUROC); the honest number is the cross-source COCO test.
 - **Whole-image detection only** — no localisation of edited regions; the tampered class was dropped by design.
-- **Prototype scale** — ~13k training images on a single consumer GPU.
+- **Prototype scale** — ~13k training images due to limited GPU computation power.
 
 **What we'd improve, in priority order:**
 1. Add COCO train2017 reals to training to cut the false-positive rate.
@@ -210,25 +214,25 @@ The false-positive rate is stable at **~7–8% across three different real-image
 4. Patch-based inference for stronger crop robustness.
 5. A from-scratch CNN baseline, trained on the same augmented data, to quantify how much the frozen foundation model buys us in robustness.
 
+
 ---
 
 ## Team Member Contributions
 
-<!-- Replace with your actual team. If solo, state "Solo project by [name]." -->
-
 | Member | Contributions |
 |---|---|
-| [Name 1] | [e.g. architecture & training pipeline, augmentation design] |
-| [Name 2] | [e.g. data streaming/extraction, evaluation harness] |
-| [Name 3] | [e.g. dashboard, error analysis, documentation & pitch] |
+| Siddharth|Team lead and coordinated logistics, checked everyone’s work and created the model|
+| Andre | created the deliverables which required coding (run.py script, confusion matrix)along with the main streamlit page|
+| Marcus| Contributed to documentation of the project, devpost submission, README file and document draft |
+| Chiam Wei| Edited the video and checked the final submission |
+
 
 ---
 
-## Further Documentation
 
-- **`PROJECT_DOCUMENTATION.md`** — complete technical reference (architecture, data decisions, full results) and a 20+ question anticipated-questions bank.
-- **`devpost.md`** — the written project description submitted via Devpost.
 
----
+
 
 *Environment used: NVIDIA RTX 5070 (CUDA 13.2), PyTorch 2.13.0, Windows. CLIP ViT-B/16 via `open_clip`.*
+
+
