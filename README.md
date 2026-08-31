@@ -17,7 +17,7 @@ An **AI-generated image detector** that verifies the authenticity of images and 
 ---
 ## Quick Start
 ### IT IS HOSTED AT - https://heckermen.streamlit.app/ 
-> Alternatively you can follow the instructions below to run locally
+###Alternatively you can follow the instructions below to run locally
 > ## ⚠️ IMPORTANT — PyTorch must be installed first
 > **`requirements.txt` assumes you already have a working PyTorch setup (GPU or CPU).**
 > It intentionally does **not** list `torch`/`torchvision`, because installing them via
