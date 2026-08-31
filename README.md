@@ -1,5 +1,5 @@
 # Robust Detection of AI-Generated Images Under Real-World Transformations
-# HOSTED AT - https://heckermen.streamlit.app/ 
+## HOSTED AT - https://heckermen.streamlit.app/ 
 
 ## Abstract
 
