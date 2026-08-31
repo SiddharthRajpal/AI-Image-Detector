@@ -1,5 +1,5 @@
 # Robust Detection of AI-Generated Images Under Real-World Transformations
-## HOSTED AT - https://heckermen.streamlit.app/ 
+## HOSTED AT - https://heckermen.streamlit.app/ (DO NOT USE BATCH FOLDER FUNCTION UNLESS RUNNING LOCALLY)
 
 ## Abstract
 
@@ -16,7 +16,7 @@ An **AI-generated image detector** that verifies the authenticity of images and 
 
 ---
 ## Quick Start
-### IT IS HOSTED AT - https://heckermen.streamlit.app/ 
+### IT IS HOSTED AT - https://heckermen.streamlit.app/ (DO NOT USE BATCH FOLDER FUNCTION UNLESS RUNNING LOCALLY)
 ### Alternatively you can follow the instructions below to run locally
 > ## ⚠️ IMPORTANT — PyTorch must be installed first
 > **`requirements.txt` assumes you already have a working PyTorch setup (GPU or CPU).**
